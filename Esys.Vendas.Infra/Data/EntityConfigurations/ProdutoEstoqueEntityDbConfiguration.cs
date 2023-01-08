@@ -11,8 +11,6 @@ namespace Esys.Vendas.Infra.Data.EntityConfigurations
             builder.ToTable("ProdutosEstoques");
 
             builder.HasKey("Id");
-
-            builder.HasOne(x => x.Produto);
         }
     }
 }

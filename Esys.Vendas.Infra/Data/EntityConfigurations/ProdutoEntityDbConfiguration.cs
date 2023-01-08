@@ -1,6 +1,7 @@
 ﻿using Esys.Vendas.Domain.DomainEntity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Esys.Vendas.Infra.Data.EntityConfigurations
 {

@@ -5,6 +5,7 @@
         Analise,
         Aprovado,
         Enviado,
-        Finalizado
+        Finalizado,
+        Cancelado
     }
 }

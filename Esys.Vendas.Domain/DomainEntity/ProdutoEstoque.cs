@@ -2,20 +2,23 @@
 {
     public class ProdutoEstoque
     {
-        public int Id { get; private set; }
+        public int Id { get; set; }
         public int ProdutoId { get; private set; }
-        public Produto Produto { get; private set; }
         public int QuantidadeEstoque { get; private set; }
 
-        public ProdutoEstoque(int produtoId, Produto produto, int quantidadeEstoque)
+        public ProdutoEstoque(int produtoId, int quantidadeEstoque)
         {
             ProdutoId = produtoId;
-            Produto = produto;
             QuantidadeEstoque = quantidadeEstoque;
         }
 
         private ProdutoEstoque()
         {
+        }
+
+        public bool Validar(int quantidadePedido) 
+        {
+            return QuantidadeEstoque >= quantidadePedido;
         }
     }
 }

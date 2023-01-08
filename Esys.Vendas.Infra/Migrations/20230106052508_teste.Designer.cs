@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Esys.Vendas.Infra.Migrations
 {
     [DbContext(typeof(VendasContext))]
-    [Migration("20221228044229_inicial2")]
-    partial class inicial2
+    [Migration("20230106052508_teste")]
+    partial class teste
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -74,6 +74,9 @@ namespace Esys.Vendas.Infra.Migrations
                     b.Property<int>("PedidoId")
                         .HasColumnType("int");
 
+                    b.Property<int>("ProdutoEstoqueId")
+                        .HasColumnType("int");
+
                     b.Property<int>("Quantidade")
                         .HasColumnType("int");
 
@@ -83,6 +86,8 @@ namespace Esys.Vendas.Infra.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("PedidoId");
+
+                    b.HasIndex("ProdutoEstoqueId");
 
                     b.ToTable("Produtos", (string)null);
                 });
@@ -102,8 +107,6 @@ namespace Esys.Vendas.Infra.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("ProdutoId");
 
                     b.ToTable("ProdutosEstoques", (string)null);
                 });
@@ -144,18 +147,15 @@ namespace Esys.Vendas.Infra.Migrations
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.Navigation("Pedido");
-                });
-
-            modelBuilder.Entity("Esys.Vendas.Domain.DomainEntity.ProdutoEstoque", b =>
-                {
-                    b.HasOne("Esys.Vendas.Domain.DomainEntity.Produto", "Produto")
+                    b.HasOne("Esys.Vendas.Domain.DomainEntity.ProdutoEstoque", "ProdutoEstoque")
                         .WithMany()
-                        .HasForeignKey("ProdutoId")
+                        .HasForeignKey("ProdutoEstoqueId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.Navigation("Produto");
+                    b.Navigation("Pedido");
+
+                    b.Navigation("ProdutoEstoque");
                 });
 
             modelBuilder.Entity("Esys.Vendas.Domain.DomainEntity.Pedido", b =>

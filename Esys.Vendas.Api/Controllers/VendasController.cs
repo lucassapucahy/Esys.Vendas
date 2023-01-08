@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿ using Esys.Vendas.Api.Dtos.Requests;
+using Esys.Vendas.Domain.Interfaces.UseCase;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Esys.Vendas.Api.Controllers
 {
@@ -6,11 +8,13 @@ namespace Esys.Vendas.Api.Controllers
     [ApiController]
     public class VendasController : ControllerBase
     {
+        private readonly ICriarNovoPedidoUseCase _criarNovoPedidoUseCase;
+        private readonly ICancelarPedidoUseCase _cancelarPedidoUseCase;
 
-        [HttpGet("produto/{id}")]
-        public IActionResult GetByProduto(int produtoId)
+        public VendasController(ICriarNovoPedidoUseCase useCase, ICancelarPedidoUseCase cancelarPedidoUseCase)
         {
-            return Ok();
+            _criarNovoPedidoUseCase = useCase;
+            _cancelarPedidoUseCase = cancelarPedidoUseCase;
         }
 
         [HttpGet("usuario/{id}")]
@@ -19,22 +23,32 @@ namespace Esys.Vendas.Api.Controllers
             return Ok();
         }
 
+        [HttpGet("pedido/{id}")]
+        public IActionResult GetByPedido(int pedidoId)
+        {
+            return Ok();
+        }
+
         [HttpPost]
-        public IActionResult Post([FromBody] string value)
+        public async Task<IActionResult> Post([FromBody] CriarPedidoRequest pedidoRequest)
         {
-            return Ok();
+            var result = await _criarNovoPedidoUseCase.Execute(pedidoRequest.ConverterParaDominio());
+
+            if (!result.Success)
+                return BadRequest(result.ErrorMessage);
+
+            return Created($"api/vendas/pedido/{result.ReturnObject?.Id}", result);
         }
 
-        [HttpPut("{id}")]
-        public IActionResult Put(int id, [FromBody] string value)
+        [HttpDelete("cancelar/{id}")]
+        public async Task<IActionResult> Delete(int id)
         {
-            return Ok();
-        }
+            var result = await _cancelarPedidoUseCase.Execute(id);
 
-        [HttpDelete("{id}")]
-        public IActionResult Delete(int id)
-        {
-            return Ok();
+            if (!result.Success)
+                return BadRequest(result.ErrorMessage);
+
+            return Ok(result.ReturnObject);
         }
     }
 }

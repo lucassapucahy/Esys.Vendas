@@ -11,14 +11,14 @@ namespace Esys.Vendas.Domain.DomainEntity
         public decimal ValorTotal { get; private set; }
         public DateTime DataCriacao { get; private set; }
         public DateTime DataAlteracao { get; private set; }
-        public StatusPedidoEnum statusPedido { get; private set; }
+        public StatusPedidoEnum StatusPedido { get; private set; }
 
         public Pedido(int usuarioId)
         {
             Produtos = new List<Produto>();
             DataCriacao = DateTime.Now;
             DataAlteracao = DateTime.Now;
-            statusPedido = StatusPedidoEnum.Analise;
+            StatusPedido = StatusPedidoEnum.Analise;
             UsuarioId = usuarioId;
         }
 
@@ -28,22 +28,26 @@ namespace Esys.Vendas.Domain.DomainEntity
 
         public bool AdicionarProdutos(List<Produto> produtos)
         {
-            produtos.AddRange(produtos);
+            Produtos.AddRange(produtos);
             ValorTotal = produtos.Sum(x => x.ValorUnitario * x.Quantidade);
             return true;
         }
 
         public void AlterarParaAprovado()
         {
-            statusPedido = StatusPedidoEnum.Aprovado;
+            StatusPedido = StatusPedidoEnum.Aprovado;
         }
         public void AlterarParaEnviado()
         {
-            statusPedido = StatusPedidoEnum.Enviado;
+            StatusPedido = StatusPedidoEnum.Enviado;
         }
         public void AlterarParaFinalizado()
         {
-            statusPedido = StatusPedidoEnum.Finalizado;
+            StatusPedido = StatusPedidoEnum.Finalizado;
+        }
+        public void AlterarParaCancelado()
+        {
+            StatusPedido = StatusPedidoEnum.Cancelado;
         }
 
         public bool Validar() 
