@@ -1,4 +1,6 @@
-﻿namespace Esys.Vendas.Api.Dtos.Responses
+﻿using Esys.Vendas.Domain.DomainEntity;
+
+namespace Esys.Vendas.Api.Dtos.Responses
 {
     public class ProdutoResponse
     {
@@ -15,6 +17,15 @@
             ValorUnitario = valorUnitario;
             Descricao = descricao;
             Quantidade = quantidade;
+        }
+
+        public static ProdutoResponse CriarApartirDominio(Produto produto)
+        {
+            return new ProdutoResponse(produto.Id,
+                produto.Nome,
+                produto.ValorUnitario,
+                produto.Descricao,
+                produto.Quantidade);
         }
     }
 }

@@ -1,5 +1,7 @@
+using Esys.Vendas.Infra.Data.Repositorio;
 using Esys.Vendas.Infra.Ioc.Domain;
 using Esys.Vendas.Infra.Ioc.Infra;
+using Microsoft.EntityFrameworkCore;
 using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -31,4 +33,16 @@ app.UseAuthorization();
 
 app.MapControllers();
 
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+
+    var context = services.GetRequiredService<VendasContext>();
+    if (context.Database.GetPendingMigrations().Any())
+    {
+        context.Database.Migrate();
+    }
+}
+
 app.Run();
+

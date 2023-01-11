@@ -1,4 +1,6 @@
 ﻿ using Esys.Vendas.Api.Dtos.Requests;
+using Esys.Vendas.Api.Dtos.Responses;
+using Esys.Vendas.Domain.Interfaces;
 using Esys.Vendas.Domain.Interfaces.UseCase;
 using Microsoft.AspNetCore.Mvc;
 
@@ -10,23 +12,30 @@ namespace Esys.Vendas.Api.Controllers
     {
         private readonly ICriarNovoPedidoUseCase _criarNovoPedidoUseCase;
         private readonly ICancelarPedidoUseCase _cancelarPedidoUseCase;
+        private readonly IPedidoRepositorio _pedidoRepositorio;
 
-        public VendasController(ICriarNovoPedidoUseCase useCase, ICancelarPedidoUseCase cancelarPedidoUseCase)
+        public VendasController(ICriarNovoPedidoUseCase useCase, ICancelarPedidoUseCase cancelarPedidoUseCase, IPedidoRepositorio pedidoRepositorio)
         {
             _criarNovoPedidoUseCase = useCase;
             _cancelarPedidoUseCase = cancelarPedidoUseCase;
+            _pedidoRepositorio = pedidoRepositorio;
         }
 
-        [HttpGet("usuario/{id}")]
-        public IActionResult GetByUser(int usuarioId)
-        {
-            return Ok();
-        }
+        //[HttpGet("usuario/{id}")]
+        //public IActionResult GetByUser(int usuarioId)
+        //{
+        //    return Ok();
+        //}
 
         [HttpGet("pedido/{id}")]
-        public IActionResult GetByPedido(int pedidoId)
+        public async Task<IActionResult> GetByPedido(int id)
         {
-            return Ok();
+            var pedido = await _pedidoRepositorio.BuscarPorIdEagerLoad(id);
+
+            if (pedido == null)
+                return NotFound();
+
+            return Ok(PedidoResponse.CriarApartirDominio(pedido));
         }
 
         [HttpPost]
