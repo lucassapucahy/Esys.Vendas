@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: esysvendas-local
+  name: esysvendasdb-deployment
+  labels:
+    app: esysvendasdb
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: esysvendasdb
+  template:
+    metadata:
+      labels:
+        app: esysvendasdb
+    spec:
+      containers:
+      - name: esysvendasdb-container
+        image: mcr.microsoft.com/mssql/server:2019-latest
+        imagePullPolicy: IfNotPresent
+        ports:
+          - containerPort: 1433
+        envFrom:
+          - configMapRef:
+              name: local-configmap

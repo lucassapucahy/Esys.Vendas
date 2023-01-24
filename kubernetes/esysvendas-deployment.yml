@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: esysvendas-local
+  name: esysvendas-deployment
+  labels:
+    app: esys
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: esys
+  template:
+    metadata:
+      labels:
+        app: esys
+    spec:
+      containers:
+      - name: esysvendas-container
+        image: esysvendasimage:latest
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 80
+        envFrom:
+          - configMapRef:
+              name: local-configmap

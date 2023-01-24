@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Esys.Vendas.Infra.Migrations
 {
     /// <inheritdoc />
-    public partial class teste : Migration
+    public partial class init : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -48,7 +48,7 @@ namespace Esys.Vendas.Infra.Migrations
                     ValorTotal = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     DataCriacao = table.Column<DateTime>(type: "datetime2", nullable: false),
                     DataAlteracao = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    statusPedido = table.Column<int>(type: "int", nullable: false)
+                    StatusPedido = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {

@@ -36,14 +36,14 @@ namespace Esys.Vendas.Infra.Migrations
                     b.Property<DateTime>("DataCriacao")
                         .HasColumnType("datetime2");
 
+                    b.Property<int>("StatusPedido")
+                        .HasColumnType("int");
+
                     b.Property<int>("UsuarioId")
                         .HasColumnType("int");
 
                     b.Property<decimal>("ValorTotal")
                         .HasColumnType("decimal(18,2)");
-
-                    b.Property<int>("statusPedido")
-                        .HasColumnType("int");
 
                     b.HasKey("Id");
 

@@ -13,19 +13,22 @@ namespace Esys.Vendas.Api.Controllers
         private readonly ICriarNovoPedidoUseCase _criarNovoPedidoUseCase;
         private readonly ICancelarPedidoUseCase _cancelarPedidoUseCase;
         private readonly IPedidoRepositorio _pedidoRepositorio;
+        private readonly IConfiguration _config;
 
-        public VendasController(ICriarNovoPedidoUseCase useCase, ICancelarPedidoUseCase cancelarPedidoUseCase, IPedidoRepositorio pedidoRepositorio)
+        public VendasController(ICriarNovoPedidoUseCase useCase, ICancelarPedidoUseCase cancelarPedidoUseCase, IPedidoRepositorio pedidoRepositorio, IConfiguration config)
         {
             _criarNovoPedidoUseCase = useCase;
             _cancelarPedidoUseCase = cancelarPedidoUseCase;
             _pedidoRepositorio = pedidoRepositorio;
+            _config = config;
         }
 
-        //[HttpGet("usuario/{id}")]
-        //public IActionResult GetByUser(int usuarioId)
-        //{
-        //    return Ok();
-        //}
+        [HttpGet("usuario/{id}")]
+        public IActionResult GetByUser(int usuarioId)
+        {
+            var teste = _config.GetConnectionString("VendasMongoDb");
+            return Ok(teste);
+        }
 
         [HttpGet("pedido/{id}")]
         public async Task<IActionResult> GetByPedido(int id)

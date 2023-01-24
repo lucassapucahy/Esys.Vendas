@@ -1,0 +1,11 @@
+kind: Service
+apiVersion: v1
+metadata:
+  namespace: esysvendas-local
+  name:  esysvendasdb-clusterip
+spec:
+  selector:
+    app:  esysvendasdb
+  type:  NodePort
+  ports:
+  - port:  1433

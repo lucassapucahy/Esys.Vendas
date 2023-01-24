@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Esys.Vendas.Infra.Migrations
 {
     [DbContext(typeof(VendasContext))]
-    [Migration("20230106052508_teste")]
-    partial class teste
+    [Migration("20230121224356_init")]
+    partial class init
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -39,14 +39,14 @@ namespace Esys.Vendas.Infra.Migrations
                     b.Property<DateTime>("DataCriacao")
                         .HasColumnType("datetime2");
 
+                    b.Property<int>("StatusPedido")
+                        .HasColumnType("int");
+
                     b.Property<int>("UsuarioId")
                         .HasColumnType("int");
 
                     b.Property<decimal>("ValorTotal")
                         .HasColumnType("decimal(18,2)");
-
-                    b.Property<int>("statusPedido")
-                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
