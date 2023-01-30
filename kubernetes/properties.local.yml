@@ -4,7 +4,6 @@ metadata:
   name: local-configmap
   namespace: esysvendas-local
 data:
-  ConnectionStrings__VendasDB: "Data Source=10.102.136.174,1433;Initial Catalog=EsysVendas;User ID=sa;Password=Admin1234@;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False;"
+  ConnectionStrings__VendasDB: "Server=esysvendasdb-nodeport,3306;User ID=root;Password=password;Database=EsysVendas"
   ConnectionStrings__VendasMongoDb: testemongo
-  SA_PASSWORD: "Admin1234@"
-  ACCEPT_EULA: "Y"
+  MYSQL_ROOT_PASSWORD: 'password'

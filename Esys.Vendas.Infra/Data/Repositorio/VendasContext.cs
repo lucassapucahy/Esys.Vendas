@@ -15,7 +15,8 @@ namespace Esys.Vendas.Infra.Data.Repositorio
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(Configuration.GetConnectionString("VendasDB"));
+            var connString = Configuration.GetConnectionString("VendasDB");
+            optionsBuilder.UseMySql(connString, ServerVersion.AutoDetect(connString));
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

@@ -2,10 +2,10 @@ kind: Service
 apiVersion: v1
 metadata:
   namespace: esysvendas-local
-  name:  esysvendasdb-clusterip
+  name:  esysvendasdb-nodeport
 spec:
   selector:
     app:  esysvendasdb
   type:  NodePort
   ports:
-  - port:  1433
+  - port:  3306

@@ -23,13 +23,6 @@ namespace Esys.Vendas.Api.Controllers
             _config = config;
         }
 
-        [HttpGet("usuario/{id}")]
-        public IActionResult GetByUser(int usuarioId)
-        {
-            var teste = _config.GetConnectionString("VendasMongoDb");
-            return Ok(teste);
-        }
-
         [HttpGet("pedido/{id}")]
         public async Task<IActionResult> GetByPedido(int id)
         {
