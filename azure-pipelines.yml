@@ -24,7 +24,7 @@ stages:
       inputs:
         targetType: 'inline'
         script: |
-          docker build . -t imagename
+          docker build . -t esysvendasimage
     - task: ECRPushImage@1
       inputs:
         awsCredentials: 'AWS conn'
