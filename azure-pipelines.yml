@@ -20,37 +20,15 @@ stages:
     pool:
       vmImage: ubuntu-latest
     steps:
-
     - task: Bash@3
-      displayName: Install AWSCLI
       inputs:
         targetType: 'inline'
         script: |
-          curl "https://s3.amazonaws.com/aws-cli/awscli-bundle.zip" -o "awscli-bundle.zip" 
-          unzip awscli-bundle.zip 
-          sudo ./awscli-bundle/install -i /usr/local/aws -b /usr/local/bin/aws
-    - task: Bash@3
-      displayName: Login into ECR
+          docker build . -t imagename
+    - task: ECRPushImage@1
       inputs:
-        targetType: 'inline'
-        script: |
-          aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 091861283598.dkr.ecr.us-east-1.amazonaws.com
-    - task: Bash@3
-      displayName: Docker build
-      inputs:
-        targetType: 'inline'
-        script: |
-          docker build -t esysvendas .
-    - task: Bash@3
-      displayName: Docker tag
-      inputs:
-        targetType: 'inline'
-        script: |
-          docker tag esysvendas:latest 091861283598.dkr.ecr.us-east-1.amazonaws.com/esysvendas:latest
-
-    - task: Bash@3
-      displayName: Pushing to ECR
-      inputs:
-        targetType: 'inline'
-        script: |
-          docker push 091861283598.dkr.ecr.us-east-1.amazonaws.com/esysvendas:latest
+        awsCredentials: 'AWS conn'
+        regionName: 'us-east-1'
+        imageSource: 'imagename'
+        sourceImageName: 'esysvendasimage'
+        repositoryName: 'esysvendas'
