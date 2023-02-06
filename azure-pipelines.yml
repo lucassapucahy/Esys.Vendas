@@ -20,6 +20,17 @@ stages:
     pool:
       vmImage: ubuntu-latest
     steps:
+
+    - task: Bash@3
+      displayName: Install python and aws cli
+      inputs:
+        targetType: 'inline'
+        script: |
+          echo 'installing python'
+          sudo apt update
+          sudo apt install python3
+          echo 'installing aws cli'
+          curl "https://s3.amazonaws.com/aws-cli/awscli-bundle.zip" -o "awscli-bundle.zip" unzip awscli-bundle.zip sudo ./awscli-bundle/install -i /usr/local/aws -b /usr/local/bin/aws
     - task: Bash@3
       displayName: Login into ECR
       inputs:
