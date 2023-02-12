@@ -28,6 +28,7 @@ if ($SEL -ne $null)
     Write-Output "Erro no build, valide no arquivo TempBuild.log na pasta raiz do projeto"
     return
 }
+
 rm TempBuild.log
 Write-Output "Build concluido com sucesso"
 

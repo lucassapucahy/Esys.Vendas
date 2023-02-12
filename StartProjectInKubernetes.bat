@@ -1,2 +1,2 @@
-@PowerShell.exe -ExecutionPolicy Bypass -command ./teste.ps1
+@PowerShell.exe -ExecutionPolicy Bypass -command ./deploy-local.ps1
 @pause
