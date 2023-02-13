@@ -33,6 +33,14 @@ rm TempBuild.log
 Write-Output "Build concluido com sucesso"
 
 Write-Output "Criando os recursos no kubernetes"
+kubectl create namespace esys-local
+kubectl config set-context --current --namespace=esys-local
+kubectl delete all --all
+kubectl apply -f kubernetes/rabbit-deployment.yml
+kubectl apply -f kubernetes/rabbit-nodeport.yml
+kubectl apply -f kubernetes/rabbit-management-nodeport.yml
+
+kubectl create namespace esysvendas-local
 kubectl config set-context --current --namespace=esysvendas-local
 kubectl delete all --all
 kubectl delete configmap local-configmap

@@ -9,3 +9,4 @@ spec:
   type:  NodePort
   ports:
   - port:  3306
+    nodePort: 30008

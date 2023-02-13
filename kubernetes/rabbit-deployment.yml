@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: esys-local
+  name: esysrabbit-deployment
+  labels:
+    app: esysrabbit
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: esysrabbit
+  template:
+    metadata:
+      labels:
+        app: esysrabbit
+    spec:
+      containers:
+      - name: esysrabbit-container
+        image: rabbitmq:3-management
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 5672
+        - containerPort: 15672
+        # envFrom:
+        #   - configMapRef:
+        #       name: local-configmap

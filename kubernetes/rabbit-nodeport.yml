@@ -1,0 +1,13 @@
+kind: Service
+apiVersion: v1
+metadata:
+  namespace: esys-local
+  name:  esysrabbit-nodeport
+spec:
+  selector:
+    app:  esysrabbit
+  type:  NodePort
+  ports:
+  - port:  5672
+    nodePort: 30009
+    
