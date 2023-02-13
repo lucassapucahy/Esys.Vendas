@@ -10,5 +10,5 @@ executar script "StartProjectInKubernetes.bat" ira gerar as seguintes açoes:
 -criar recursos NodePort para aplicação e banco de dados
 -criar pods da aplicação e do banco de dados
 
-apos isso , basta pegar a porta external do nodeport da aplicação atraves do comando kubectl get services e acessar
-localhost:{porta externa do nodeport da aplicação}
+Swagger: localhost:30007/swagger
+(se estiver usando linux vai ter que pegar o IP do cluster. ex: ipcluster:30007/swagger)
