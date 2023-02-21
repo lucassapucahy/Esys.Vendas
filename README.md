@@ -5,10 +5,24 @@ Projeto que simula um microservico de um e-commerce que cuidaria da parte de ven
 para executar o projeto precisa ter docker e kubernetes instalados na maquina.
 
 executar script "StartProjectInKubernetes.bat" ira gerar as seguintes açoes:
+
 -build da imagem docker
+
 -criar configmap
+
 -criar recursos NodePort para aplicação e banco de dados
+
 -criar pods da aplicação e do banco de dados
 
-Swagger: localhost:30007/swagger
-(se estiver usando linux vai ter que pegar o IP do cluster. ex: ipcluster:30007/swagger)
+Swagger: localhost:30007/swagger (se estiver usando linux vai ter que pegar o IP do cluster. ex: ipcluster:30007/swagger)
+
+Portas disponiveis e serviços para acessar do localhost:
+
+-Aplicação : 30007
+
+-MYSQL : 30008
+
+-RabbitManagement : 30010
+
+-Rabit : 30009
+
