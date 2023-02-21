@@ -2,7 +2,7 @@ kind: Service
 apiVersion: v1
 metadata:
   namespace: esys-local
-  name:  esysrabbit-nodeport
+  name:  rabbit-nodeport
 spec:
   selector:
     app:  esysrabbit

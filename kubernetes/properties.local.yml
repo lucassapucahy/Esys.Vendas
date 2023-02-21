@@ -7,3 +7,5 @@ data:
   ConnectionStrings__VendasDB: "Server=esysvendasdb-nodeport,3306;User ID=root;Password=password;Database=EsysVendas"
   ConnectionStrings__VendasMongoDb: testemongo
   MYSQL_ROOT_PASSWORD: 'password'
+  RabbitConnection__Url: "rabbit-nodeport.esys-local"
+  RabbitConnection__Port: "5672"
