@@ -22,6 +22,7 @@ namespace Esys.Vendas.Infra.Message
         public void Startup() 
         {
             UsuarioCriadoStartup();
+            ProdutoEstoqueStartup();
         }
 
         private void UsuarioCriadoStartup()
@@ -36,6 +37,21 @@ namespace Esys.Vendas.Infra.Message
 
             channel.QueueBind(queue: "Esys.UsuarioCriado",
                               exchange: "UsuarioCriadoExchange",
+                              routingKey: string.Empty);
+        }
+
+        private void ProdutoEstoqueStartup()
+        {
+            channel.ExchangeDeclare(exchange: "ProdutoEstoqueExchange", type: ExchangeType.Fanout);
+
+            channel.QueueDeclare(queue: "Esys.ProdutoEstoque",
+                     durable: false,
+                     exclusive: false,
+                     autoDelete: false,
+                     arguments: null);
+
+            channel.QueueBind(queue: "Esys.ProdutoEstoque",
+                              exchange: "ProdutoEstoqueExchange",
                               routingKey: string.Empty);
         }
 

@@ -2,6 +2,7 @@
 using Esys.Vendas.Infra.Data.Repositorio;
 using Esys.Vendas.Infra.Message;
 using Esys.Vendas.Infra.MessageBrokers.Rabbit;
+using Esys.Vendas.Infra.MessageBrokers.Rabbit.Consumers.ProdutoEstoque;
 using Esys.Vendas.Infra.MessageBrokers.Rabbit.Consumers.UsuarioCriado;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -35,6 +36,7 @@ namespace Esys.Vendas.Infra.Ioc.Infra
             services.AddScoped<IUsuarioRepositorio, UsuarioRepositorio>();
             services.AddScoped<IPedidoRepositorio, PedidoRepositorio>();
             services.AddScoped<IUsuarioCriadoConsumer, UsuarioCriadoConsumer>();
+            services.AddScoped<IProdutoEstoqueConsumer, ProdutoEstoqueConsumer>();
             services.AddScoped<IRabbitUtils, RabbitUtils>();
 
         }
@@ -42,6 +44,8 @@ namespace Esys.Vendas.Infra.Ioc.Infra
         private static void AddHosteds(IServiceCollection services)
         {
             services.AddHostedService<UsuarioCriadoService>();
+            services.AddHostedService<ProdutoEstoqueService>();
+
         }
 
     }
