@@ -1,20 +1,28 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using Esys.Vendas.Domain.Interfaces;
+using Microsoft.Extensions.Logging;
 
 namespace Esys.Vendas.Infra.MessageBrokers.Rabbit.Consumers.UsuarioCriado
 {
     public class UsuarioCriadoConsumer : ConsumerBase<UsuarioCriadoModel>, IUsuarioCriadoConsumer
     {
         private readonly ILogger<UsuarioCriadoConsumer> _logger;
+        private readonly IUsuarioRepositorio _usuarioRepositorio;
 
-        public UsuarioCriadoConsumer(ILogger<UsuarioCriadoConsumer> logger, IRabbitUtils rabbitUtils)
-            :base(logger,rabbitUtils, "Esys.UsuarioCriado")
+        public UsuarioCriadoConsumer(ILogger<UsuarioCriadoConsumer> logger, IRabbitUtils rabbitUtils, IUsuarioRepositorio usuarioRepositorio)
+            : base(logger, rabbitUtils, "Esys.UsuarioCriado")
         {
             _logger = logger;
+            _usuarioRepositorio = usuarioRepositorio;
         }
 
         public override void ConsumerAction(UsuarioCriadoModel targetObject)
         {
-            _logger.LogInformation("qwert");
+            var usuarioDomain = targetObject.ToDomain();
+
+            var usuarioAdicionado = _usuarioRepositorio.Adicionar(usuarioDomain);
+            _usuarioRepositorio.SalvarAlteracoes();
+
+            _logger.LogInformation($"Usuario {usuarioDomain.Nome} criado com sucesso com ID: {usuarioAdicionado.Id}");
         }
     }
 }

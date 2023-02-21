@@ -6,7 +6,7 @@ using System.Text.Json;
 
 namespace Esys.Vendas.Infra.MessageBrokers.Rabbit.Consumers
 {
-    public abstract class ConsumerBase<T> : IConsumerBase<T>
+    public abstract class ConsumerBase<T> : IConsumerBase<T> where T : ConsumerModel
     {
 
         private readonly ILogger<ConsumerBase<T>> _logger;
@@ -40,6 +40,12 @@ namespace Esys.Vendas.Infra.MessageBrokers.Rabbit.Consumers
                     _logger.LogInformation(message);
 
                     var targetObject = JsonSerializer.Deserialize<T>(message);
+
+                    if (!targetObject.Validar())
+                    {
+                        _logger.LogError($"Mensagem nao valida");
+                        channel.BasicAck(ea.DeliveryTag, false);
+                    }
 
                     ConsumerAction(targetObject);
 
